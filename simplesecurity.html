@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>simplesecurity package &mdash; SimpleSecurity 2023.1.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="simplesecurity" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/proj-icon.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Docs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeOfConduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rationale.html">Rationale</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">simplesecurity</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">simplesecurity package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simplesecurity.filter">simplesecurity.filter module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.filter.deduplicate"><code class="docutils literal notranslate"><span class="pre">deduplicate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.filter.filterSeverityAndConfidence"><code class="docutils literal notranslate"><span class="pre">filterSeverityAndConfidence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.filter.findingsEqual"><code class="docutils literal notranslate"><span class="pre">findingsEqual()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.filter.lookupId"><code class="docutils literal notranslate"><span class="pre">lookupId()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simplesecurity.formatter">simplesecurity.formatter module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.formatter.ansi"><code class="docutils literal notranslate"><span class="pre">ansi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.formatter.csv"><code class="docutils literal notranslate"><span class="pre">csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.formatter.formatEvidence"><code class="docutils literal notranslate"><span class="pre">formatEvidence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.formatter.json"><code class="docutils literal notranslate"><span class="pre">json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.formatter.markdown"><code class="docutils literal notranslate"><span class="pre">markdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.formatter.sarif"><code class="docutils literal notranslate"><span class="pre">sarif()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simplesecurity.github">simplesecurity.github module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.github.GithubAnnotationsAndComments"><code class="docutils literal notranslate"><span class="pre">GithubAnnotationsAndComments</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simplesecurity.level">simplesecurity.level module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.level.Level"><code class="docutils literal notranslate"><span class="pre">Level</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simplesecurity.plugins">simplesecurity.plugins module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins._doSysExec"><code class="docutils literal notranslate"><span class="pre">_doSysExec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins.bandit"><code class="docutils literal notranslate"><span class="pre">bandit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins.dodgy"><code class="docutils literal notranslate"><span class="pre">dodgy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins.extractEvidence"><code class="docutils literal notranslate"><span class="pre">extractEvidence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins.flake8"><code class="docutils literal notranslate"><span class="pre">flake8()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins.safety"><code class="docutils literal notranslate"><span class="pre">safety()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins.semgrep"><code class="docutils literal notranslate"><span class="pre">semgrep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins.stringMatchesinFile"><code class="docutils literal notranslate"><span class="pre">stringMatchesinFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.plugins.trivy"><code class="docutils literal notranslate"><span class="pre">trivy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simplesecurity.types">simplesecurity.types module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.types.Finding"><code class="docutils literal notranslate"><span class="pre">Finding</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.types.Line"><code class="docutils literal notranslate"><span class="pre">Line</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-simplesecurity">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.cli"><code class="docutils literal notranslate"><span class="pre">cli()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplesecurity.runAllPlugins"><code class="docutils literal notranslate"><span class="pre">runAllPlugins()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py-modindex.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.html">Search Page</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SimpleSecurity</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">simplesecurity</a></li>
+      <li class="breadcrumb-item active">simplesecurity package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/simplesecurity.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="simplesecurity-package">
+<h1>simplesecurity package<a class="headerlink" href="#simplesecurity-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-simplesecurity.filter">
+<span id="simplesecurity-filter-module"></span><h2>simplesecurity.filter module<a class="headerlink" href="#module-simplesecurity.filter" title="Permalink to this heading"></a></h2>
+<p>Some of our analysis tools overlap one-another so lets remove duplicates.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.filter.deduplicate">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.filter.</span></span><span class="sig-name descname"><span class="pre">deduplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">findings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.filter.deduplicate" title="Permalink to this definition"></a></dt>
+<dd><p>Deduplicate the list of findings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>findings</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]) – list of findings to deduplicate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>new deduplicated list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.filter.filterSeverityAndConfidence">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.filter.</span></span><span class="sig-name descname"><span class="pre">filterSeverityAndConfidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">findings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.filter.filterSeverityAndConfidence" title="Permalink to this definition"></a></dt>
+<dd><p>Filter the list of findings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>findings</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]) – list of findings to filter</p></li>
+<li><p><strong>severity</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – min severity</p></li>
+<li><p><strong>confidence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – min confidence</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>new deduplicated list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.filter.findingsEqual">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.filter.</span></span><span class="sig-name descname"><span class="pre">findingsEqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">findingA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">findingB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.filter.findingsEqual" title="Permalink to this definition"></a></dt>
+<dd><p>Basically and __eq__ method for findings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>findingA</strong> (<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>) – lhs</p></li>
+<li><p><strong>findingB</strong> (<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>) – rhs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>0 if not equal. 1 if lookup(left) is equal to right - bin left.
+-1 if lookup(right) is equal to left - bin right</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.filter.lookupId">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.filter.</span></span><span class="sig-name descname"><span class="pre">lookupId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.filter.lookupId" title="Permalink to this definition"></a></dt>
+<dd><p>Lookup an id in the id map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>identifier</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – id to look up</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>id that it equals</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-simplesecurity.formatter">
+<span id="simplesecurity-formatter-module"></span><h2>simplesecurity.formatter module<a class="headerlink" href="#module-simplesecurity.formatter" title="Permalink to this heading"></a></h2>
+<p>Take our findings dictionary and give things a pretty format. The findings
+dictionary is formatted as below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">evidence</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Line</span><span class="p">]</span>
+        <span class="n">severity</span><span class="p">:</span> <span class="n">Level</span>
+        <span class="n">confidence</span><span class="p">:</span> <span class="n">Level</span>
+        <span class="n">line</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">_other</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Serveral types of outputs are supported. These include:</dt><dd><ul class="simple">
+<li><p>markdown</p></li>
+<li><p>json</p></li>
+<li><p>csv</p></li>
+<li><p>ansi</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.formatter.ansi">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.formatter.</span></span><span class="sig-name descname"><span class="pre">ansi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">findings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colourMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.formatter.ansi" title="Permalink to this definition"></a></dt>
+<dd><p>Format to ansi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>findings</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]) – list of findings</p></li>
+<li><p><strong>heading</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Optional heading to include. Defaults to None</p></li>
+<li><p><strong>colourMode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Output with a given colour mode:, 0 for no colour, 1</p></li>
+</ul>
+</dd>
+</dl>
+<p>for default, 2 for high contrast. Defaults to 0.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:return: String to write to a file of stdout</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.formatter.csv">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.formatter.</span></span><span class="sig-name descname"><span class="pre">csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">findings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colourMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.formatter.csv" title="Permalink to this definition"></a></dt>
+<dd><p>Format to CSV.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>findings</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]) – list of findings</p></li>
+<li><p><strong>heading</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Optional heading to include. Defaults to None</p></li>
+<li><p><strong>colourMode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Output with a given colour mode:, 0 for no colour, 1</p></li>
+</ul>
+</dd>
+</dl>
+<p>for default, 2 for high contrast. Defaults to 0.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:return: String to write to a file of stdout</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.formatter.formatEvidence">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.formatter.</span></span><span class="sig-name descname"><span class="pre">formatEvidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newlineChar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.formatter.formatEvidence" title="Permalink to this definition"></a></dt>
+<dd><p>Format evidence to plaintext.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evidence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Line" title="simplesecurity.types.Line"><code class="xref py py-class docutils literal notranslate"><span class="pre">Line</span></code></a>]) – list of lines of code</p></li>
+<li><p><strong>newlineChar</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – use newline char. Defaults to true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>string representation of this</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.formatter.json">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.formatter.</span></span><span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">findings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colourMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.formatter.json" title="Permalink to this definition"></a></dt>
+<dd><p>Format to Json.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>findings</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]) – list of findings</p></li>
+<li><p><strong>heading</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Optional heading to include. Defaults to None</p></li>
+<li><p><strong>colourMode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Output with a given colour mode:, 0 for no colour, 1</p></li>
+</ul>
+</dd>
+</dl>
+<p>for default, 2 for high contrast. Defaults to 0.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:return: String to write to a file of stdout</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.formatter.markdown">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.formatter.</span></span><span class="sig-name descname"><span class="pre">markdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">findings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colourMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.formatter.markdown" title="Permalink to this definition"></a></dt>
+<dd><p>Format to Markdown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>findings</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]) – list of findings</p></li>
+<li><p><strong>heading</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Optional heading to include. Defaults to None</p></li>
+<li><p><strong>colourMode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Output with a given colour mode:, 0 for no colour, 1 for
+default, 2 for high contrast. Defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>String to write to a file of stdout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.formatter.sarif">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.formatter.</span></span><span class="sig-name descname"><span class="pre">sarif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">findings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colourMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.formatter.sarif" title="Permalink to this definition"></a></dt>
+<dd><p>Format to sarif <a class="reference external" href="https://sarifweb.azurewebsites.net/">https://sarifweb.azurewebsites.net/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>findings</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]) – list of findings</p></li>
+<li><p><strong>heading</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Optional heading to include. Defaults to None</p></li>
+<li><p><strong>colourMode</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Output with a given colour mode:, 0 for no colour,</p></li>
+</ul>
+</dd>
+</dl>
+<p>1 for default, 2 for high contrast. Defaults to 0.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:return: String to write to a file of stdout</p>
+</dd></dl>
+
+</section>
+<section id="module-simplesecurity.github">
+<span id="simplesecurity-github-module"></span><h2>simplesecurity.github module<a class="headerlink" href="#module-simplesecurity.github" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="simplesecurity.github.GithubAnnotationsAndComments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simplesecurity.github.</span></span><span class="sig-name descname"><span class="pre">GithubAnnotationsAndComments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">github_access_token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github_repo_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github_workflow_run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">findings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.github.GithubAnnotationsAndComments" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simplesecurity.github.GithubAnnotationsAndComments._get_relative_path">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_relative_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">absolute_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.github.GithubAnnotationsAndComments._get_relative_path" title="Permalink to this definition"></a></dt>
+<dd><p>This Function takes and absolute path and extracts the relative path
+using the os library and then replace the originated ../ format with an
+empty space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simplesecurity.github.GithubAnnotationsAndComments._post_comment">
+<span class="sig-name descname"><span class="pre">_post_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">find</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.github.GithubAnnotationsAndComments._post_comment" title="Permalink to this definition"></a></dt>
+<dd><p>This function comments finds that are not file-specific into the
+respective PR. The steps to do so include:</p>
+<ul class="simple">
+<li><p>retrieving the issue_number</p></li>
+<li><p>retrieving the comment_url</p></li>
+<li><p>posting the comment via the GitHub API</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>find</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – A dictionary containing a finding of one of the scanners</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simplesecurity.github.GithubAnnotationsAndComments._process_findings">
+<span class="sig-name descname"><span class="pre">_process_findings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.github.GithubAnnotationsAndComments._process_findings" title="Permalink to this definition"></a></dt>
+<dd><p>The findings must be processed in order to make them viable for
+annotation. The steps include:</p>
+<ul class="simple">
+<li><p>filtering for any non-file-specific findings, as they will be</p></li>
+</ul>
+<p>commented in the PR instead of annotated
+* retrieving the endline of the finding, when available
+* templating the findings in the correct format for the GitHub API</p>
+<p>The function returns a boolean to flag for the list being empty</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A boolean indicator flagging whether the list contains</p>
+</dd>
+</dl>
+<p>findings (True) or is empty (False)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simplesecurity.github.GithubAnnotationsAndComments._search_check_suite">
+<span class="sig-name descname"><span class="pre">_search_check_suite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.github.GithubAnnotationsAndComments._search_check_suite" title="Permalink to this definition"></a></dt>
+<dd><p>This function retrieve all parameters that are necessary for
+executing the next steps and include:</p>
+<ul class="simple">
+<li><p>The API Headers</p></li>
+<li><p>The repo name, owner and RunID</p></li>
+<li><p>The workflow and check_suite runs</p></li>
+</ul>
+<p>This step is essential for all the other consecutive steps and the
+parameters are cast as attributes to the class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simplesecurity.github.GithubAnnotationsAndComments._upload_batchwise_annotations">
+<span class="sig-name descname"><span class="pre">_upload_batchwise_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.github.GithubAnnotationsAndComments._upload_batchwise_annotations" title="Permalink to this definition"></a></dt>
+<dd><p>This function uses the annotation_list and patches this as
+annotations through the GitHub API. Other parameters include:</p>
+<ul class="simple">
+<li><p>check_suite_run_url</p></li>
+<li><p>owner</p></li>
+<li><p>repo_name</p></li>
+<li><p>runID</p></li>
+<li><p>headers</p></li>
+</ul>
+<p>The function executes the patching in batches of 50, as this is the
+limit provided by GitHub.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simplesecurity.github.GithubAnnotationsAndComments.annotate_and_comment_in_pr">
+<span class="sig-name descname"><span class="pre">annotate_and_comment_in_pr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.github.GithubAnnotationsAndComments.annotate_and_comment_in_pr" title="Permalink to this definition"></a></dt>
+<dd><p>This function orchestrates the flow of the comment and annotation
+process. The flow consits out of:
+1. searching the Check Suite and parameterize the class with all
+necessary tokens
+2. process the findings: comment the non-file related findings and
+format the file-related findings for annotation
+3. batchwise uploading of annotations for the file-related findings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simplesecurity.level">
+<span id="simplesecurity-level-module"></span><h2>simplesecurity.level module<a class="headerlink" href="#module-simplesecurity.level" title="Permalink to this heading"></a></h2>
+<p>Levels for confidence and severity.</p>
+<p>UNKNOWN = 0
+LOW = 1
+MED = 2
+HIGH = 3</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="simplesecurity.level.Level">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simplesecurity.level.</span></span><span class="sig-name descname"><span class="pre">Level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.level.Level" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<p>Levels for confidence and severity.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.level.Level.HIGH">
+<span class="sig-name descname"><span class="pre">HIGH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#simplesecurity.level.Level.HIGH" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.level.Level.LOW">
+<span class="sig-name descname"><span class="pre">LOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#simplesecurity.level.Level.LOW" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.level.Level.MED">
+<span class="sig-name descname"><span class="pre">MED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#simplesecurity.level.Level.MED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.level.Level.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#simplesecurity.level.Level.UNKNOWN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simplesecurity.level.Level.toSarif">
+<span class="sig-name descname"><span class="pre">toSarif</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.level.Level.toSarif" title="Permalink to this definition"></a></dt>
+<dd><p>Convert to sarif representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simplesecurity.plugins">
+<span id="simplesecurity-plugins-module"></span><h2>simplesecurity.plugins module<a class="headerlink" href="#module-simplesecurity.plugins" title="Permalink to this heading"></a></h2>
+<p>Plugins are modules that kick-off a particular scanner and return the
+results as a findings object. The structure of the findings object is shown
+below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">evidence</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Line</span><span class="p">]</span>
+        <span class="n">severity</span><span class="p">:</span> <span class="n">Level</span>
+        <span class="n">confidence</span><span class="p">:</span> <span class="n">Level</span>
+        <span class="n">line</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">_other</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins._doSysExec">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">_doSysExec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorAsOut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins._doSysExec" title="Permalink to this definition"></a></dt>
+<dd><p>Helper function for executing commandline commands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>RuntimeWarning: throw a warning should there be a non exit code</p>
+</dd>
+<dt class="field-even">Param</dt>
+<dd class="field-even"><p>commands as a string</p>
+</dd>
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>optional, redirect errors to stdout</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>tuple of return code (int) and stdout (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins.bandit">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">bandit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins.bandit" title="Permalink to this definition"></a></dt>
+<dd><p>bandit plugin for generating list of findings using for bandit. Requires
+bandit on the system path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>RuntimeError: if bandit is not on the system path, then throw</p>
+</dd>
+</dl>
+<p>this error
+:type scan_dir: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param scan_dir: The scanning path is a string that point to the directory
+that should be scanned. This argument is required.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]
+:return: returns structured list of findings, if there are any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins.dodgy">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">dodgy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins.dodgy" title="Permalink to this definition"></a></dt>
+<dd><p>dodgy plugin for generating list of findings using for dodgy. Requires
+dodgy on the system path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>RuntimeError: if dodgy is not on the system path, then throw this</p>
+</dd>
+</dl>
+<p>error
+:type scan_dir: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param scan_dir: The scanning path is a string that point to the directory
+that should be scanned. This argument is required.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]
+:return: returns structured list of findings, if there are any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins.extractEvidence">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">extractEvidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LineNrOrWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins.extractEvidence" title="Permalink to this definition"></a></dt>
+<dd><p>Grab evidence from the source file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>LineNrOrWord</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – This can be an integer or string that outlines the</p>
+</dd>
+</dl>
+<p>exact line or keyword that should be scanned.
+:type file: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param file: A string that point to the file that should be interrogated
+for annotation
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>
+:return: This function returns a dictionary that contains the line_nrs of
+where the matches were found, and content, that shows the bodies of text
+where the matches were found in.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins.flake8">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">flake8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins.flake8" title="Permalink to this definition"></a></dt>
+<dd><p>flake8 plugin for generating list of findings using for dlint. Requires
+flake8 and dlint on the system path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>RuntimeError: if flake8 is not on the system path, then throw</p>
+</dd>
+</dl>
+<p>this error
+:type scan_dir: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param scan_dir: The scanning path is a string that point to the directory
+that should be scanned. This argument is required.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]
+:return: returns structured list of findings, if there are any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins.safety">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">safety</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins.safety" title="Permalink to this definition"></a></dt>
+<dd><p>safety plugin for generating list of findings using for safety. Requires
+safety on the system path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>RuntimeError: if safety is not on the system path, then throw</p>
+</dd>
+</dl>
+<p>this error
+:type scan_dir: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param scan_dir: The scanning path is a string that point to the directory
+that should be scanned. This argument is required.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]
+:return: returns structured list of findings, if there are any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins.semgrep">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">semgrep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins.semgrep" title="Permalink to this definition"></a></dt>
+<dd><p>Semgrep plugin for generating list of findings using for semgrep.
+Requires Semgrep on the system path (wsl in windows).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>RuntimeError: if black cant be found</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>scan_dir</strong> (<em>str</em>) – The scanning path is a string that point to the</p>
+</dd>
+</dl>
+<p>directory that should be scanned. This argument is required.
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]
+:return: returns structured list of findings, if there are any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins.stringMatchesinFile">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">stringMatchesinFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins.stringMatchesinFile" title="Permalink to this definition"></a></dt>
+<dd><p>Search for the given string in file and return lines containing that
+string, along with line numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – string that outlines the exact line or keyword that</p>
+</dd>
+</dl>
+<p>should be scanned.
+:param str pattern: string that provides the keyword for the search
+:return list: returns a list of matches</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.plugins.trivy">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.plugins.</span></span><span class="sig-name descname"><span class="pre">trivy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.plugins.trivy" title="Permalink to this definition"></a></dt>
+<dd><p>Trivy plugin for generating list of findings using for trivy. Requires
+trivy on the system path (wsl in windows).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>RuntimeError: if trivy cant be found</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>scan_dir</strong> (<em>str</em>) – The scanning path is a string that point to the
+directory that should be scanned. This argument is required.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns structured list of findings, if there are any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-simplesecurity.types">
+<span id="simplesecurity-types-module"></span><h2>simplesecurity.types module<a class="headerlink" href="#module-simplesecurity.types" title="Permalink to this heading"></a></h2>
+<p>Types used by simplesecurity.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simplesecurity.types.</span></span><span class="sig-name descname"><span class="pre">Finding</span></span><a class="headerlink" href="#simplesecurity.types.Finding" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>Finding type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding._other">
+<span class="sig-name descname"><span class="pre">_other</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#simplesecurity.types.Finding._other" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#simplesecurity.level.Level" title="simplesecurity.level.Level"><span class="pre">Level</span></a></em><a class="headerlink" href="#simplesecurity.types.Finding.confidence" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#simplesecurity.types.Finding.description" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding.evidence">
+<span class="sig-name descname"><span class="pre">evidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#simplesecurity.types.Line" title="simplesecurity.types.Line"><span class="pre">simplesecurity.types.Line</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#simplesecurity.types.Finding.evidence" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding.file">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#simplesecurity.types.Finding.file" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#simplesecurity.types.Finding.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding.line">
+<span class="sig-name descname"><span class="pre">line</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#simplesecurity.types.Finding.line" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding.severity">
+<span class="sig-name descname"><span class="pre">severity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#simplesecurity.level.Level" title="simplesecurity.level.Level"><span class="pre">Level</span></a></em><a class="headerlink" href="#simplesecurity.types.Finding.severity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Finding.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#simplesecurity.types.Finding.title" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="simplesecurity.types.Line">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simplesecurity.types.</span></span><span class="sig-name descname"><span class="pre">Line</span></span><a class="headerlink" href="#simplesecurity.types.Line" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>Line type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Line.content">
+<span class="sig-name descname"><span class="pre">content</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#simplesecurity.types.Line.content" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Line.line">
+<span class="sig-name descname"><span class="pre">line</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#simplesecurity.types.Line.line" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simplesecurity.types.Line.selected">
+<span class="sig-name descname"><span class="pre">selected</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#simplesecurity.types.Line.selected" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simplesecurity">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-simplesecurity" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.cli">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.</span></span><span class="sig-name descname"><span class="pre">cli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.cli" title="Permalink to this definition"></a></dt>
+<dd><p>Cli entry point.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simplesecurity.runAllPlugins">
+<span class="sig-prename descclassname"><span class="pre">simplesecurity.</span></span><span class="sig-name descname"><span class="pre">runAllPlugins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pluginMap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simplesecurity.runAllPlugins" title="Permalink to this definition"></a></dt>
+<dd><p>This helper function triggers als scans if no specific scan is
+requested. It triggers the scans chronologically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scan_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The scanning path is a string that point to the directory
+that should be scanned. This argument is required.</p></li>
+<li><p><strong>pluginMap</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – A map of all the plugins, or scans, that are iterated</p></li>
+</ul>
+</dd>
+</dl>
+<p>over when scanning everything.
+:type severity: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>
+:param severity: Level of Severity helps you filter through the results and
+is denoted as a integer.
+:type confidence: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>
+:param confidence: Level of Confidence helps you filter through the results</p>
+<blockquote>
+<div><p>and is denoted as a integer.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fast</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – A Boolean indicator to enable fast scanning when available.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#simplesecurity.types.Finding" title="simplesecurity.types.Finding"><code class="xref py py-class docutils literal notranslate"><span class="pre">Finding</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list findings that the list of scans have returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="simplesecurity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, FredHappyface, Pieter Geelen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
